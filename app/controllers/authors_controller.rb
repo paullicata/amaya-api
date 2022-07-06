@@ -26,7 +26,7 @@ class AuthorsController < ApplicationController
 
   # PATCH/PUT /authors/1
   def update
-    if @author.update(author_params)
+    if !author_params.empty? && @author.update(author_params)
       render json: @author
     else
       render json: @author.errors, status: :unprocessable_entity
@@ -39,13 +39,14 @@ class AuthorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_author
-      @author = Author.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def author_params
-      params.fetch(:author, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_author
+    @author = Author.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def author_params
+    params.require(:author).permit(:first_name, :last_name)
+  end
 end

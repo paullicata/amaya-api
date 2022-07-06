@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
 
+  # skip_before_action :authenticate_user!
   # GET /books
   def index
     @books = Book.all
@@ -26,7 +27,7 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1
   def update
-    if @book.update(book_params)
+    if !book_params.empty? && @book.update(book_params)
       render json: @book
     else
       render json: @book.errors, status: :unprocessable_entity
@@ -40,13 +41,13 @@ class BooksController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def book_params
-      params.fetch(:book, {})
-    end
+  # Only allow a trusted parameter "white list" through.
+  def book_params
+    params.require(:book).permit(:author_id, :title, :grade_level, :copyright, :genre, :description, :cover)
+  end
 end

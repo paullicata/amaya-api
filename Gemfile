@@ -47,3 +47,4 @@ gem 'bcrypt'
 gem 'pry'
 gem "rspec-rails", group: [:development, :test]
 gem 'shoulda-matchers', '~> 5.0', group: [:development, :test]
+gem 'pry'

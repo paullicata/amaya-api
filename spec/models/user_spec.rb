@@ -2,13 +2,13 @@ require 'rails_helper'
 
 
 RSpec.describe User, type: :model do
-  subject {
+  subject do
     described_class.new(username: 'plicata',
                         password: 'password1234',
                         email: 'plicata18@gmail.com',
                         first_name: 'Paul',
                         last_name: 'Licata')
-  }
+  end
 
   context 'Validations' do
 

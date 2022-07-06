@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Book, type: :model do
 
-  subject {
+  subject do
     described_class.new(author_id: 1,
                         title: 'Green Eggs and Ham',
                         copyright: '1960',
@@ -10,7 +10,7 @@ RSpec.describe Book, type: :model do
                         genre: 'Childrens',
                         description: 'Some description')
 
-  }
+  end
 
   context 'Validations' do
 
