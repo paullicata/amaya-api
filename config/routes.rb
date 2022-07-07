@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :liked_books
   resources :authors
   resources :books
   devise_for :users,
