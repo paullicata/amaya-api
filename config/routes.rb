@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   patch 'users/:id', to: 'users#update'
   put 'users/:id', to: 'users#update'
   delete 'users/:id', to: 'users#destroy'
+
+  get 'books/show_user_likes/:user_id', to: 'books#show_user_likes'
 end

@@ -27,8 +27,16 @@ RSpec.describe '/liked_books', type: :request do
                 title: 'Foo',
                 copyright: '1999',
                 grade_level: '2',
-                genre: 'bar',
+                genre: 'Children\'',
                 description: 'Foo bar',
+                cover: 'http://foo.bar')
+    Book.create(id: 3,
+                author_id: 1,
+                title: 'Bar',
+                copyright: '2018',
+                grade_level: '2',
+                genre: 'Children\'',
+                description: 'Bar foo',
                 cover: 'http://foo.bar')
   end
 
@@ -145,6 +153,45 @@ RSpec.describe '/liked_books', type: :request do
       expect {
         delete liked_book_url(liked_book), headers: valid_headers, as: :json
       }.to change(LikedBook, :count).by(-1)
+    end
+  end
+
+  describe 'GET liked_albums#most_popular' do
+    let(:popular_books_list) do
+      [{
+           id: 2,
+           author_id: 1,
+           title: 'Foo',
+           copyright: '1999',
+           grade_level: '2',
+           genre: 'Children\'',
+           description: 'Foo bar',
+           cover: 'http://foo.bar'
+      }, {
+          id: 3,
+          author_id: 1,
+          title: 'Bar',
+          copyright: '2018',
+          grade_level: '2',
+          genre: 'Children\'',
+          description: 'Bar foo',
+          cover: 'http://foo.bar'
+      }]
+    end
+    xit 'returns a list of LikedBooks in descending order' do
+      LikedBook.create! valid_attributes
+
+      get '/liked_books/most_popular', params: { liked_book: valid_attributes }, headers: valid_headers, as: :json
+      binding.pry
+      expect {
+
+      }.to eq(:popular_books_list)
+    end
+  end
+
+  describe 'GET liked_books#show_user_likes' do
+    it 'returns a list of users liked books' do
+
     end
   end
 end

@@ -1,6 +1,7 @@
 class LikedBooksController < ApplicationController
   before_action :set_liked_book, only: [:show, :update, :destroy]
 
+  skip_before_action :authenticate_user!
   # GET /liked_books
   def index
     @liked_books = LikedBook.all
@@ -40,7 +41,6 @@ class LikedBooksController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
   def set_liked_book
     @liked_book = LikedBook.find(params[:id])
   end
@@ -49,4 +49,5 @@ class LikedBooksController < ApplicationController
   def liked_book_params
     params.require(:liked_book).permit(:user_id, :book_id)
   end
+
 end

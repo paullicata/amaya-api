@@ -1,6 +1,7 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :update, :destroy]
 
+  skip_before_action :authenticate_user!
   # GET /authors
   def index
     @authors = Author.all

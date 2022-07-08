@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
 
-  # skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!
   # GET /books
   def index
     @books = Book.all
@@ -37,6 +37,16 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy
+  end
+
+  def show_user_likes
+    #@books = Book.joins(liked_books: :users).where('users.id = ?', params[:user_id])
+
+    @books = Book.joins('INNER JOIN liked_books ON liked_books.book_id = books.id
+                         INNER JOIN users ON users.id = liked_books.user_id')
+                 .where('users.id = ?', params[:user_id])
+
+    render json: @books
   end
 
   private
