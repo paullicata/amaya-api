@@ -20,10 +20,9 @@ class ExtractAuthorsFromTimeout
       response = gets.chomp
 
       if response == 'n'
-        puts 'here'
+        puts 'Skipping this Author/Book'
         next
       else
-        puts "Ack!"
         author_split = author.split
         author = Author.create(first_name: author_split[0], last_name: author_split[1])
         Book.create(title: title_stripped,
