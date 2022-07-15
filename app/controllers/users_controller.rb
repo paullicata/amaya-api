@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
-  skip_before_action  :authenticate_user!
+  skip_before_action :authenticate_user!
 
   def index
     @users = User.all
@@ -23,6 +23,18 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+  end
+
+  def following
+    @user = User.find(params[:id])
+    @users = @user.following
+    render json: @users
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers
+    render json: @users
   end
 
   private

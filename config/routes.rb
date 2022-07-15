@@ -9,12 +9,17 @@ Rails.application.routes.draw do
                  sessions: :sessions
              }
 
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
 
   get 'users', to: 'users#index'
   get 'users/:id', to: 'users#show'
   patch 'users/:id', to: 'users#update'
   put 'users/:id', to: 'users#update'
   delete 'users/:id', to: 'users#destroy'
-
   get 'books/show_user_likes/:user_id', to: 'books#show_user_likes'
 end

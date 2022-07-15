@@ -3,7 +3,6 @@ class ApplicationController < ActionController::API
   respond_to :json
 
   before_action :process_token
-
   before_action :authenticate_user!
 
   # If user has not signed in, return unauthorized response (called only when auth is needed)
@@ -24,8 +23,6 @@ class ApplicationController < ActionController::API
       end
     end
   end
-
-
 
   # set Devise's current_user using decoded JWT instead of session
   def current_user

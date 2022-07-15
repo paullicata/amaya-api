@@ -26,6 +26,33 @@ RSpec.describe '/users', type: :request do
     {}
   end
 
+  let(:michael) do
+    User.create(id: 2,
+                username: 'michael',
+                password: 'password1234',
+                email: 'michael@gmail.com',
+                first_name: 'Michael',
+                last_name: 'Smith')
+  end
+
+  let(:archer) do
+    User.create(id: 3,
+                username: 'archer',
+                password: 'password1234',
+                email: 'archer@gmail.com',
+                first_name: 'Archer',
+                last_name: 'Doe')
+  end
+
+  let(:daniel) do
+    User.create(id: 4,
+                username: 'daniel',
+                password: 'password1234',
+                email: 'daniel@gmail.com',
+                first_name: 'Daniel',
+                last_name: 'Lee')
+  end
+
   describe 'GET /index' do
     it 'renders a successful response' do
       User.create! valid_attributes
@@ -143,6 +170,24 @@ RSpec.describe '/users', type: :request do
       expect {
         delete "/users/#{user.id}", headers: valid_headers, as: :json
       }.to change(User, :count).by(-1)
+    end
+  end
+
+  describe 'GET /following' do
+    it 'renders a list of who the user is following' do
+      archer.follow(daniel)
+      archer.follow(michael)
+      get "/users/#{archer.id}/following", headers: valid_headers, as: :json
+      expect(response.body).to eq([daniel, michael].to_json)
+    end
+  end
+
+  describe 'GET /followers' do
+    it 'renders a list of who the user followed by' do
+      archer.follow(michael)
+      daniel.follow(michael)
+      get "/users/#{michael.id}/followers", headers: valid_headers, as: :json
+      expect(response.body).to eq([archer, daniel].to_json)
     end
   end
 end
