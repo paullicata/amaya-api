@@ -62,5 +62,11 @@ RSpec.describe User, type: :model do
         expect(michael.following?(archer)).to be false
       end
     end
+
+    # describe 'User relationship with LikedBooks' do
+    #   it 'deletes the associated likedbook when the user is deleted' do
+    #     michael.liked_books.create!(book_id: )
+    #   end
+    # end
   end
 end
