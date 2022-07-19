@@ -48,3 +48,8 @@ gem 'pry'
 gem "rspec-rails", group: [:development, :test]
 gem 'shoulda-matchers', '~> 5.0', group: [:development, :test]
 gem 'pry'
+gem 'active_storage_validations', '0.8.2'
+
+group :production do
+  gem 'aws-sdk-s3', '1.46.0', require: false
+end

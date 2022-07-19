@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates_presence_of :username
+  has_one_attached :profile_picture
   has_many :active_relationships,   class_name: 'Relationship',
                                     foreign_key: 'follower_id',
                                     dependent: :destroy
@@ -14,6 +15,11 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships , source: :follower
   has_many :liked_books, dependent: :destroy
+
+  validates :profile_picture,       content_type: { in: %w[image/jpeg image/gif image/png],
+                                                    message: 'must be a valid image format' },
+                                    size:         { less_than: 5.megabytes,
+                                                    message: 'should be less than 5MB' }
 
   def follow(other_user)
     following << other_user

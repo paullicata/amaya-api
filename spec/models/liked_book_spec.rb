@@ -2,8 +2,16 @@ require 'rails_helper'
 
 RSpec.describe LikedBook, type: :model do
 
+  let(:michael) do
+    User.create(id: 2,
+                username: 'michael',
+                password: 'password1234',
+                email: 'michael@gmail.com',
+                first_name: 'Michael',
+                last_name: 'Smith')
+  end
   subject do
-    described_class.new(user_id: 1,
+    described_class.new(user_id: michael.id,
                         book_id: 2)
   end
 
