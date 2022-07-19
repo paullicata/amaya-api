@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   before_save :downcase_email
   before_save :downcase_username
-  validates :username, presence: true, length: { maximum: 50 }, uniqueness: true
+  validates :username, presence: true, length: { minimum: 3, maximum: 50 }, uniqueness: true
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true
   has_one_attached :profile_picture
   has_many :active_relationships,   class_name: 'Relationship',
