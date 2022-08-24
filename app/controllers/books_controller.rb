@@ -49,6 +49,13 @@ class BooksController < ApplicationController
     render json: @books
   end
 
+  def show_book_by_title
+    @books = Book.joins('INNER JOIN authors ON authors.id = books.author_id')
+                 .select('books.id, authors.id as author_id, authors.name, books.title, books.cover')
+                 .where('LOWER(books.title) like ?', "%#{params[:title]}%".downcase).limit(10)
+    render json: @books
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

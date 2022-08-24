@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  attr_accessor :reset_token
+
   before_save :downcase_email
   before_save :downcase_username
   validates :username, presence: true, length: { minimum: 3, maximum: 50 }, uniqueness: true
@@ -39,8 +41,18 @@ class User < ApplicationRecord
     followers.include?(other_user)
   end
 
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_password_token, User.digest(reset_token))
+    update_attribute(:reset_password_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
   def generate_jwt
-    JWT.encode({id: id, exp: 60.days.from_now.to_i}, Rails.application.secrets.secret_key_base)
+    JWT.encode({ id: id, exp: 60.days.from_now.to_i }, Rails.application.secrets.secret_key_base)
   end
 
   private
