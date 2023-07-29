@@ -28,7 +28,6 @@ RSpec.describe '/books', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-
       Book.create! valid_attributes
       get books_url, headers: valid_headers, as: :json
       expect(response).to be_successful

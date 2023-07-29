@@ -62,14 +62,14 @@ RSpec.describe '/liked_books', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      xit 'creates a new LikedBook' do
+      it 'creates a new LikedBook' do
         expect {
           post liked_books_url,
                params: { liked_book: valid_attributes }, headers: valid_headers, as: :json
         }.to change(LikedBook, :count).by(1)
       end
 
-      xit 'renders a JSON response with the new liked_book' do
+      it 'renders a JSON response with the new liked_book' do
         post liked_books_url,
              params: { liked_book: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
@@ -78,14 +78,14 @@ RSpec.describe '/liked_books', type: :request do
     end
 
     context 'with invalid parameters' do
-      xit 'does not create a new LikedBook' do
+      it 'does not create a new LikedBook' do
         expect {
           post liked_books_url,
                params: { liked_book: invalid_attributes }, as: :json
         }.to change(LikedBook, :count).by(0)
       end
 
-      xit 'renders a JSON response with errors for the new liked_book' do
+      it 'renders a JSON response with errors for the new liked_book' do
         post liked_books_url,
              params: { liked_book: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
@@ -118,7 +118,7 @@ RSpec.describe '/liked_books', type: :request do
         { user_id: 4, book_id: 17 }
       }
 
-      xit 'updates the requested liked_book' do
+      it 'updates the requested liked_book' do
         liked_book = LikedBook.create! valid_attributes
         patch liked_book_url(liked_book),
               params: { liked_book: new_attributes }, headers: valid_headers, as: :json
@@ -156,7 +156,7 @@ RSpec.describe '/liked_books', type: :request do
     end
   end
 
-  describe 'GET liked_albums#most_popular' do
+  describe 'GET liked_books#most_popular' do
     let(:popular_books_list) do
       [{
            id: 2,

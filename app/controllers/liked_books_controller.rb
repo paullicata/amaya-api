@@ -16,7 +16,7 @@ class LikedBooksController < ApplicationController
 
   # POST /liked_books
   def create
-    @liked_book = current_user.new(liked_book_params)
+    @liked_book = LikedBook.new(liked_book_params)
 
     if @liked_book.save
       render json: @liked_book, status: :created, location: @liked_book
@@ -47,7 +47,7 @@ class LikedBooksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
   def liked_book_params
-    params.require(:liked_book).permit(:book_id)
+    params.require(:liked_book).permit(:user_id, :book_id)
   end
 
 end
