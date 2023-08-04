@@ -17,7 +17,7 @@ RSpec.describe Book, type: :model do
   context 'Validations' do
 
     it 'is valid with valid attributes' do
-      Author.create(id: 1, first_name: 'Foo', last_name: 'Bar')
+      Author.create(id: 1, name: 'Eric Carle')
       expect(subject).to be_valid
     end
 

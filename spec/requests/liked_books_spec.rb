@@ -21,7 +21,7 @@ RSpec.describe '/liked_books', type: :request do
                 email: 'plicata18@gmail.com',
                 first_name: 'Paul',
                 last_name: 'Licata')
-    Author.create(id: 1, first_name: 'foo', last_name: 'bar')
+    Author.create(id: 1, name: 'Eric Carle')
     Book.create(id: 2,
                 author_id: 1,
                 title: 'Foo',
@@ -103,7 +103,7 @@ RSpec.describe '/liked_books', type: :request do
                     email: 'test@gmail.com',
                     first_name: 'Paul',
                     last_name: 'Licata')
-        Author.create(id: 2, first_name: 'foo', last_name: 'bar')
+        Author.create(id: 2, name: 'Eric Carle')
         Book.create(id: 17,
                     author_id: 1,
                     title: 'Foo',
