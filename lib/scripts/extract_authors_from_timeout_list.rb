@@ -16,23 +16,43 @@ class ExtractAuthorsFromTimeout
       title_stripped = title.sub(/[0"-9]. /, '')
 
       cleaned_grade = grade[index].sub(/Best for: /, '')
-      puts "Use selected: #{title} - #{author} Grade: #{cleaned_grade}? Select n/y"
-      response = gets.chomp
+      # puts "Use selected: #{title} - #{author} Grade: #{cleaned_grade}? Select n/y"
+      # response = gets.chomp
 
-      if response == 'n'
-        puts 'Skipping this Author/Book'
-        next
-      else
-        author_split = author.split
-        author = Author.create(first_name: author_split[0], last_name: author_split[1])
-        Book.create(title: title_stripped,
-                    author_id: author.id,
-                    copyright: 'N/A',
-                    genre: 'N/A',
-                    grade_level: cleaned_grade,
-                    description: 'N/A')
-      end
+      # if response == 'n'
+      #   puts 'Skipping this Author/Book'
+      #   next
+      # else
+      author_new = Author.create(name: author)
+      Book.create(title: title_stripped,
+                  author_id: author_new.id,
+                  copyright: 'N/A',
+                  genre: 'N/A',
+                  grade_level: cleaned_grade,
+                  description: 'N/A')
+      # end
     end
+  end
+
+  def self.find_author(first_name, last_name)
+    Author.where("authors.first_name = '#{first_name}' and authors.last_name = '#{last_name}'")
+  end
+
+  def self.create_author(first_name, last_name)
+    Author.create(first_name: first_name, last_name: last_name)
+  end
+
+  def self.find_book(title)
+    Book.where(title: title)
+  end
+
+  def self.create_book(title, author_id, copyright, genre, grade_level, description)
+    Book.create(title: title,
+                author_id: author_id,
+                copyright: copyright,
+                genre: genre,
+                grade_level: grade_level,
+                description: description)
   end
 
   def self.start

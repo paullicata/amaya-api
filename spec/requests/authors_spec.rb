@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe '/authors', type: :request do
 
   let(:valid_attributes) do
-    { first_name: 'Paul', last_name: 'Licata' }
+    { name: 'Eric Carle' }
   end
 
   let(:invalid_attributes) do
@@ -72,7 +72,7 @@ RSpec.describe '/authors', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) do
-        { first_name: 'bar', last_name: 'foo' }
+        { name: 'Roald Dahl' }
       end
 
       it 'updates the requested author' do
@@ -80,8 +80,7 @@ RSpec.describe '/authors', type: :request do
         patch author_url(author),
               params: { author: new_attributes }, headers: valid_headers, as: :json
         author.reload
-        expect(author.first_name).to eq('bar')
-        expect(author.last_name).to eq('foo')
+        expect(author.name).to eq('Roald Dahl')
       end
 
       it 'renders a JSON response with the author' do

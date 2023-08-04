@@ -15,7 +15,7 @@ RSpec.describe '/books', type: :request do
 
 
   before(:example) do
-    Author.create(id: 2, first_name: 'foo', last_name: 'bar')
+    Author.create(id: 2, name: 'Eric Carle')
   end
 
   before(:example) do
